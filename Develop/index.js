@@ -7,6 +7,7 @@ const util = require('util');
 // internal files
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
+// axios function that is used to grab user information
 // const githubInfo = {
 //  getUser(userResponse){
 //     let response = axios.get(`https://api.github.com/users/${userResponse.username}`);
@@ -88,25 +89,28 @@ function writeToFile(fileName, data) {
         console.log("Readme.txt complete!")
     });
 }
-const readMe = util.promisify(writeToFile);
+const readMeAsync = util.promisify(writeToFile);
 
 
 async function init() {
+    try {
     const userResponse = await inquirer.prompt(questions);
     console.log("Your answers:", userResponse);
     console.log("We've recieved your answers, Now formating your info.");
 
 
-    // const userInfo = await githubInfo(userResponse);
-    // console.log("Your Github info" , userInfo);
+    const userInfo = await githubInfo(userResponse);
+    console.log("Your Github info" , userInfo);
 
     console.log("Creating your README")
     const markdown = generateMarkdown(userResponse, userInfo);
     console.log(markdown);
 
-    await writeFileAsync('README.md', markdown);
+    await readMeAsync('README.txt', markdown);
     
+    } catch (err) {
+        console.log(error);
+    }
 }
-
 
 init();
