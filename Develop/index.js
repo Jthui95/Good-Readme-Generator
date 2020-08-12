@@ -1,16 +1,41 @@
+// required packages
 const inquirer = require("inquirer");
 const fs = require('fs');
+const util = require('util');
+// const axios = require('axios')
 
-//Inquirer prompts from User Responses
+// internal files
+const generateMarkdown = require('./utils/generateMarkdown.js');
+
+// const githubInfo = {
+//  getUser(userResponse){
+//     let response = axios.get(`https://api.github.com/users/${userResponse.username}`);
+//     return response.data
+//     }
+// }
+//Answers we will get from the User.
 const questions = [
 {
     type: 'input',
-    message: 'What would you like to name your read me file?',
+    message: "What is your GitHub username? ",
+    name: 'username',
+    default: 'Jthui95',
+    validate: function (answer) {
+        if (answer.length < 1) {
+            return console.log("Please enter a valid Github username.");
+        }
+        return true;
+    }
+},
+{
+    
+    type: 'input',
+    message: 'What would you like to name your README file?',
     name:'Title',
     default: 'readme.txt',
     validate: function(answer){
         if (answer.length < 1) {
-            return console.log('A title for your read me is required.')
+            return console.log('A title for your README is required.')
         } else
         return true;
     }
@@ -22,15 +47,10 @@ const questions = [
     default: 'File Descritption',
     validate: function(answer) {
         if (answer.lenght < 1) {
-            return console.log("A description is requried for your read me.")
-        }
+            return console.log("A description is requried for your README.")
+        } else
+        return true;
     }
-},
-{
-    type: 'input',
-    message:"Please list out your table of contents.",
-    name: 'contents'
-    
 },
 {
     type: 'input',
@@ -53,30 +73,8 @@ const questions = [
     message:'If you have any tests for your application, let us know how to run them. If not skip them.',
     name:'tests',
 },
-{
-    type: 'input',
-        message: "What is your GitHub username? ",
-        name: 'username',
-        default: 'jthui95',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("Please enter a valid Github username.");
-            }
-            return true;
-        }
-},
-{
-    type: 'input',
-    message: "What is the name of your GitHub repo?",
-    name: 'repo',
-    default: 'readme-generator',
-    validate: function (answer) {
-        if (answer.length < 1) {
-            return console.log("A valid GitHub repo is required for a badge.");
-        }
-        return true;
-    }
-},
+
+   
 
 ];
 
@@ -90,9 +88,25 @@ function writeToFile(fileName, data) {
         console.log("Readme.txt complete!")
     });
 }
+const readMe = util.promisify(writeToFile);
 
-function init() {
 
+async function init() {
+    const userResponse = await inquirer.prompt(questions);
+    console.log("Your answers:", userResponse);
+    console.log("We've recieved your answers, Now formating your info.");
+
+
+    // const userInfo = await githubInfo(userResponse);
+    // console.log("Your Github info" , userInfo);
+
+    console.log("Creating your README")
+    const markdown = generateMarkdown(userResponse, userInfo);
+    console.log(markdown);
+
+    await writeFileAsync('README.md', markdown);
+    
 }
+
 
 init();
