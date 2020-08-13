@@ -35,9 +35,9 @@ function generateMarkdown(userResponse, userInfo) {
   ${userResponse.tests} 
 
 ## Questions \n 
-For any questions, contact me at [${userResponse.url}](mailto:${userResponse.email}). 
+For any questions, contact me at [${userInfo.url}](mailto:${userResponse.email}). 
 
-#### [![Profile Pic](${userResponse.picture})](https://github.com/${userResponse.username})
+#### [![Profile Pic](${userInfo.avatar_url})](https://github.com/${userResponse.username})
 `;
 }
 
