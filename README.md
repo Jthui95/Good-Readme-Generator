@@ -15,9 +15,7 @@ To create your own README, you have to run npm install.
 
 ## Usage
 First copy the respository onto your computer. Then open the repositiory in visual studio code. Open the terminal and type npm install, after that type node index.js and you will be prompted to fill out a series of questions. 
-<video width="320" height="240" controls>
-  <source src="2020-08-12_17-59-40.mp4" type="video/mp4">
-</video>
+
 
 ## Contributing
 Feel free to contribute whatever you'd like to the code.
