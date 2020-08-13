@@ -2,25 +2,30 @@
 const inquirer = require("inquirer");
 const fs = require('fs');
 const util = require('util');
-// const axios = require('axios')
+const axios = require('axios');
 
 // internal files
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
 // axios function that is used to grab user information
-// const githubInfo = {
-//  getUser(userResponse){
-//     let response = axios.get(`https://api.github.com/users/${userResponse.username}`);
-//     return response.data
-//     }
-// }
+const githubInfo = {
+ async getUser(userResponse) {
+    try { let response = axios.get(`https://api.github.com/users/${userResponse.username}`);
+    return response.data;
+
+    }
+    catch (error) {;
+    console.log(error);
+    }
+    }
+}
 //Answers we will get from the User.
 const questions = [
 {
     type: 'input',
     message: "What is your GitHub username? ",
     name: 'username',
-    default: 'Jthui95',
+    default: 'jthui95',
     validate: function (answer) {
         if (answer.length < 1) {
             return console.log("Please enter a valid Github username.");
@@ -99,7 +104,7 @@ async function init() {
     console.log("We've recieved your answers, Now formating your info.");
 
 
-    const userInfo = await githubInfo(userResponse);
+    const userInfo = await githubInfo.getUser(userResponse);
     console.log("Your Github info" , userInfo);
 
     console.log("Creating your README")
@@ -108,7 +113,7 @@ async function init() {
 
     await readMeAsync('README.txt', markdown);
     
-    } catch (err) {
+    } catch (error) {
         console.log(error);
     }
 }
