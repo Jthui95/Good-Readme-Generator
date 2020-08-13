@@ -38,7 +38,7 @@ const questions = [
     
     type: 'input',
     message: 'What would you like to name your README file?',
-    name:'Title',
+    name:'title',
     default: 'readme.txt',
     validate: function(answer){
         if (answer.length < 1) {
