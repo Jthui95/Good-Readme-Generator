@@ -1,16 +1,43 @@
 function generateMarkdown(userResponse, userInfo) {
   return `
-# ${data.title} \n;
+# ${userResponse.title} \n
+
 ## Description \n ${userResponse.description}
+
 ## Table of Contents \n* 
-## Installation ${userResponse.install} [Installation](#Installation)\n*
-## Usage \n ${userResponse.usage} [Usage](#Usage)\n*
-## License \n ${ userResponse.license} [License](#License)\n* 
-## Contributing \n ${userResponse.contributing} [Contributing](#Contributing)\n*
-## Badges \n ![languages badge](https://img.shields.io/github/languages/top/${userInfo.userName}/${userInfo.repoName}) [Badges](#Badges)\n*
-## Tests \n ${userResponse.tests} [Tests](#Tests)\n*
-## Questions \n For any questions, contact me at [${userInfo.email}](mailto:${userInfo.email}). [Questions](#Questions)
-#### [![Profile Pic](${userInfo.picture})](https://github.com/${userInfo.userName})
+  [Installation](#Installation)\n* 
+  [Usage](#Usage)\n* 
+  [License](#License)\n* 
+  [Contributing](#Contributing)\n*
+  [Badges](#Badges)\n*
+  [Tests](#Tests)\n*
+  [Questions](#Questions)\n*
+
+## Installation\n 
+  *What is needed to install the project*
+  ${userResponse.install} 
+
+## Usage \n 
+  *Instructions on how to use the application*
+  ${userResponse.usage} 
+
+## License \n 
+  ${ userResponse.license} 
+
+## Contributing \n 
+  *If you would like people to contribute to your code*
+  ${userResponse.contributing} 
+
+## Badges \n ![languages badge](https://img.shields.io/github/languages/top/${userResponse.username}/${userResponse.repo}) 
+
+## Tests \n 
+  *Tests for the application and how to run them.*
+  ${userResponse.tests} 
+
+## Questions \n 
+For any questions, contact me at [${userResponse.url}](mailto:${userResponse.email}). 
+
+#### [![Profile Pic](${userInfo.picture})](https://github.com/${userInfo.username})
 `;
 }
 

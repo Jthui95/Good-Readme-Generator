@@ -7,18 +7,7 @@ const axios = require('axios');
 // internal files
 const generateMarkdown = require('./utils/generateMarkdown.js');
 
-// axios function that is used to grab user information
-const githubInfo = {
- async getUser(userResponse) {
-    try { let response = axios.get(`https://api.github.com/users/${userResponse.username}`);
-    return response.data;
 
-    }
-    catch (error) {;
-    console.log(error);
-    }
-    }
-}
 //Answers we will get from the User.
 const questions = [
 {
@@ -29,6 +18,18 @@ const questions = [
     validate: function (answer) {
         if (answer.length < 1) {
             return console.log("Please enter a valid Github username.");
+        }
+        return true;
+    }
+},
+{
+    type: 'input',
+    message: "What is the name of your repo?",
+    name: 'repo',
+    default: 'readme-generator',
+    validate: function (answer) {
+        if (answer.length < 1) {
+            return console.log("A valid GitHub repo is required for this section.");
         }
         return true;
     }
@@ -80,9 +81,11 @@ const questions = [
     name:'tests',
 },
 
+
    
 
 ];
+
 
 function writeToFile(fileName, data) {
     fs.writeFile(fileName, JSON.stringify(data), function(err){
@@ -103,6 +106,18 @@ async function init() {
     console.log("Your answers:", userResponse);
     console.log("We've recieved your answers, Now formating your info.");
 
+    // axios function that is used to grab user information
+const githubInfo = {
+    async getUser(userResponse) {
+       try { let response = await axios.get(`https://api.github.com/users/${userResponse.username}`);
+       return response.data;
+   
+           }
+           catch (error) {;
+           console.log(error);
+            }
+       }
+   }
 
     const userInfo = await githubInfo.getUser(userResponse);
     console.log("Your Github info" , userInfo);
