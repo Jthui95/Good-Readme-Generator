@@ -24,6 +24,18 @@ const questions = [
 },
 {
     type: 'input',
+    message: "What is your perfered email address? ",
+    name: 'email',
+    default: 'jhuidev@gmail.com',
+    validate: function (answer) {
+        if (answer.length < 1) {
+            return console.log("Please enter a valid email.");
+        }
+        return true;
+    }
+},
+{
+    type: 'input',
     message: "What is the name of your repo?",
     name: 'repo',
     default: 'readme-generator',
@@ -88,7 +100,7 @@ const questions = [
 
 
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, function(err){
+    fs.writeFile(fileName,data, function(err){
        
         if (err) {
             return console.log(err);
