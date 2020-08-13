@@ -88,7 +88,7 @@ const questions = [
 
 
 function writeToFile(fileName, data) {
-    fs.writeFile(fileName, JSON.stringify(data), function(err){
+    fs.writeFile(fileName, data, function(err){
        
         if (err) {
             return console.log(err);

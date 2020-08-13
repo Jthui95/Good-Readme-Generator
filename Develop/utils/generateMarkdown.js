@@ -4,7 +4,7 @@ function generateMarkdown(userResponse, userInfo) {
 
 ## Description \n ${userResponse.description}
 
-## Table of Contents \n* 
+## Table-of-Contents \n* 
   [Installation](#Installation)\n* 
   [Usage](#Usage)\n* 
   [License](#License)\n* 
